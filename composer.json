@@ -1,14 +1,19 @@
 {
     "name": "biblys/eurotax",
     "description": "Calculates taxes for all european countries",
-    "license": "Public Domain",
-    "minimum-stability": "dev",
+    "time": "2015-01-01",
+    "keywords": ["Tax", "VAT", "TVA", "Europe"],
+    "homepage": "https://github.com/biblys/eurotax",
+    "license": "MIT",
     "authors": [
         {
             "name": "Clement Bourgoin",
             "email": "cb@nokto.net"
         }
     ],
+    "support": {
+        "issues": "https://github.com/biblys/eurotax/issues"
+    },
     "require": {
         "php": ">=5.3.0"
     },
