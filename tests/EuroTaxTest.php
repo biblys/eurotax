@@ -11,9 +11,31 @@ class testEuroTax extends PHPUnit_Framework_TestCase
     {
     
         $tax = new Tax();
-        $tax->setCustomerCountry('BE');
         $tax->setSellerCountry('FR');
+        $tax->setCustomerCountry('BE');
         $tax->setProductType(Tax::EBOOK);
+
+        $this->assertEquals(21, $tax->getTaxRate());
+        
+    }
+        
+    public function testBefore2015()
+    {
+    
+        $tax = new Tax();
+        $tax->setSellerCountry('FR');
+        $tax->setCustomerCountry('BE');
+        $tax->setProductType(Tax::EBOOK);
+        $tax->setDateOfSale(new \DateTime('2014-12-31'));
+
+        $this->assertEquals(5.5, $tax->getTaxRate());
+        
+    }
+        
+    public function testShortVersion()
+    {
+    
+        $tax = new Tax('FR', 'BE', Tax::EBOOK);
 
         $this->assertEquals(21, $tax->getTaxRate());
         
