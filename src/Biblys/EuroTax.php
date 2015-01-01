@@ -40,7 +40,7 @@ class EuroTax
      */
     public function setCustomerCountry($country) 
     {
-        $this->customerCountry = $country;
+        $this->customerCountry = strtoupper($country);
     }
     
     public function getCustomerCountry() 
@@ -54,7 +54,7 @@ class EuroTax
     */
     public function setSellerCountry($country) 
     {
-        $this->sellerCountry = $country;
+        $this->sellerCountry = strtoupper($country);
     }
     
     public function getSellerCountry() 
