@@ -230,6 +230,13 @@ class EuroTax
      */
     public function setProductType($type)
     {
+        $country = $this->getCustomerCountry();
+        
+        if (!isset($this->rates[$country][$type]))
+        {
+            $type = self::STANDARD;
+        }
+        
         $this->productType = $type;
     }
     
@@ -285,14 +292,7 @@ class EuroTax
             $this->setCustomerCountry($this->getSellerCountry());
         }
         
-        $country = $this->rates[$this->getCustomerCountry()];
-        
-        $rate = $country[$this->getProductType()];
-        
-        if (!$rate)
-        {
-            $rate = $country[self::STANDARD];
-        }
+        $rate = $this->rates[$this->getCustomerCountry()][$this->getProductType()];
         
         $this->setTaxRate($rate);
         

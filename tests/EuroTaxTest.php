@@ -63,4 +63,13 @@ class testEuroTax extends PHPUnit_Framework_TestCase
         
     }
     
+    public function testUnsetProductType()
+    {
+    
+        $tax = new Tax('FR', 'FI', Tax::AUDIOBOOK);
+
+        $this->assertEquals(Tax::STANDARD, $tax->getProductType());
+        
+    }
+    
 }
