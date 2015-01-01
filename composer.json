@@ -1,7 +1,7 @@
 {
     "name": "biblys/eurotax",
     "description": "Calculates taxes for all european countries",
-    "time": "2015-01-01",
+    "time": "2015-01-02",
     "keywords": ["Tax", "VAT", "TVA", "Europe"],
     "homepage": "https://github.com/biblys/eurotax",
     "license": "MIT",

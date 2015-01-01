@@ -66,6 +66,7 @@ Short version:
 * EBOOK
 * AUDIOEBOOK (selled on physical support, eg. CD)
 * EAUDIOBOOK (downloable audio books)
+* PERIODICAL (magazines, etc.)
 * CD
 * DVD
 
@@ -74,6 +75,11 @@ Short version:
 I just this class with just the countries and product types I needed in my app, but feel free to add whatever your need and share it by doing pull requests.
 
 ## Changelog
+
+1.0.1 (02/01/2015)
+* Allow lowercase for country codes
+* Fallback to seller's country if customer's unknown
+* Fallback to STANDARD product type if type does not exist
 
 1.0.0 (01/01/2015)  
 * First release
