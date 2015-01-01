@@ -4,7 +4,7 @@ namespace Biblys;
 
 class EuroTax
 {
-    const STANDARD = 0, // Default tax rate to us with unknown type
+    const STANDARD = 0, // Default tax rate to use with unknown type
         BOOK = 1, 
         EBOOK = 2, 
         AUDIOBOOK = 3, // Physical audio books
@@ -14,21 +14,28 @@ class EuroTax
     
     private $customerCountry,
         $sellerCountry,
-        $productType, 
+        $productType,
+        $dateOfSale,
         $taxRate;
     
-    public function __construct($sellerCountry = null, $customerCountry = null, $productType = null)
+    public function __construct($sellerCountry = null, $customerCountry = null, $productType = null, $dateOfSale = null)
     {
         if (isset($sellerCountry)) $this->setSellerCountry($sellerCountry);
         if (isset($customerCountry)) $this->setCustomerCountry($customerCountry);
-        if (isset($productType)) $this->setProductType($type);
+        if (isset($productType)) $this->setProductType($productType);
+        
+        $this->setDateOfSale(new \DateTime());
+        if (isset($dateOfSale)) 
+        {
+            $this->setDateOfSale($dateOfSale);
+        }
         
         $this->calculateTaxRate();
     }
     
     /**
      * Set the customer country
-     * @param string $country An ISO-XXXX country code
+     * @param string $country An ISO-3166 country code
      */
     public function setCustomerCountry($country) 
     {
@@ -42,7 +49,7 @@ class EuroTax
     
     /**
     * Set the seller country
-    * @param string $country An ISO-XXXX country code
+    * @param string $country An ISO-3166 country code
     */
     public function setSellerCountry($country) 
     {
@@ -68,6 +75,25 @@ class EuroTax
         return $this->productType;
     }
     
+    /**
+     * Set the date of sale
+     * @param Date $date
+     */
+    public function setDateOfSale(\DateTime $date)
+    {
+        $this->dateOfSale = $date;
+    }
+    
+    public function getDateOfSale()
+    {
+        return $this->dateOfSale;
+    }
+    
+    /**
+     * Set the tax rate
+     * @param float $rate
+     */
+    
     private function setTaxRate($rate)
     {
         $this->taxRate = $rate;
@@ -78,12 +104,22 @@ class EuroTax
         return $this->calculateTaxRate();
     }
     
+    /**
+     * Calculate the tax rate
+     */
+    
     private function calculateTaxRate()
     {
         
         if (!$this->getSellerCountry() || !$this->getCustomerCountry() || !$this->getProductType())
         {
             return false;
+        }
+        
+        // If date of sale < January 1st 2015, don't use customer country
+        if ($this->getDateOfSale() < new \DateTime("2015-01-01"))
+        {
+            $this->setCustomerCountry($this->getSellerCountry());
         }
         
         $rates = array(
