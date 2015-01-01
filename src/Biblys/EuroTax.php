@@ -9,8 +9,9 @@ class EuroTax
         EBOOK = 2, 
         AUDIOBOOK = 3, // Physical audio books
         EAUDIOBOOK = 4, // Downloadable audio books
-        CD = 5,
-        DVD = 6;
+        PERIODICAL = 5, // Magazines
+        CD = 6,
+        DVD = 7;
     
     private $customerCountry,
         $sellerCountry,
@@ -172,7 +173,8 @@ class EuroTax
                 self::BOOK => 5.5,
                 self::EBOOK => 5.5,
                 self::AUDIOBOOK => 5.5,
-                self::AUDIOBOOK => 20
+                self::AUDIOBOOK => 20,
+                self::PERIODICAL => 2.1
             ),
             
             // Croatia
