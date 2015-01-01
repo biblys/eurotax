@@ -40,5 +40,14 @@ class testEuroTax extends PHPUnit_Framework_TestCase
         $this->assertEquals(21, $tax->getTaxRate());
         
     }
+        
+    public function testUnknownCustomerCountry()
+    {
+    
+        $tax = new Tax('FR', 'US', Tax::EBOOK);
+
+        $this->assertEquals($tax->getSellerCountry(), $tax->getCustomerCountry());
+        
+    }
     
 }

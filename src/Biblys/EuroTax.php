@@ -189,7 +189,15 @@ class EuroTax
      */
     public function setCustomerCountry($country) 
     {
-        $this->customerCountry = strtoupper($country);
+        $country = strtoupper($country);
+        
+        // If unhandled country, fallback to seller's
+        if (!isset($this->rates[$country]))
+        {
+            $country = $this->getSellerCountry();
+        }
+        
+        $this->customerCountry = $country;
     }
     
     public function getCustomerCountry() 
@@ -273,11 +281,6 @@ class EuroTax
         }
         
         $country = $this->rates[$this->getCustomerCountry()];
-        
-        if (!$country)
-        {
-            throw new Exception('Unknown country '.$this->getCustomerCountry());
-        }
         
         $rate = $country[$this->getProductType()];
         
