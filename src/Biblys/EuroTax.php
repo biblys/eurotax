@@ -17,112 +17,7 @@ class EuroTax
         $sellerCountry,
         $productType,
         $dateOfSale,
-        $taxRate;
-    
-    public function __construct($sellerCountry = null, $customerCountry = null, $productType = null, $dateOfSale = null)
-    {
-        if (isset($sellerCountry)) $this->setSellerCountry($sellerCountry);
-        if (isset($customerCountry)) $this->setCustomerCountry($customerCountry);
-        if (isset($productType)) $this->setProductType($productType);
-        
-        $this->setDateOfSale(new \DateTime());
-        if (isset($dateOfSale)) 
-        {
-            $this->setDateOfSale($dateOfSale);
-        }
-        
-        $this->calculateTaxRate();
-    }
-    
-    /**
-     * Set the customer country
-     * @param string $country An ISO-3166 country code
-     */
-    public function setCustomerCountry($country) 
-    {
-        $this->customerCountry = strtoupper($country);
-    }
-    
-    public function getCustomerCountry() 
-    {
-        return $this->customerCountry;
-    }
-    
-    /**
-    * Set the seller country
-    * @param string $country An ISO-3166 country code
-    */
-    public function setSellerCountry($country) 
-    {
-        $this->sellerCountry = strtoupper($country);
-    }
-    
-    public function getSellerCountry() 
-    {
-        return $this->sellerCountry;
-    }
-    
-    /**
-     * Set the product type 
-     * @param CONST $type See CONSTs
-     */
-    public function setProductType($type)
-    {
-        $this->productType = $type;
-    }
-    
-    public function getProductType()
-    {
-        return $this->productType;
-    }
-    
-    /**
-     * Set the date of sale
-     * @param Date $date
-     */
-    public function setDateOfSale(\DateTime $date)
-    {
-        $this->dateOfSale = $date;
-    }
-    
-    public function getDateOfSale()
-    {
-        return $this->dateOfSale;
-    }
-    
-    /**
-     * Set the tax rate
-     * @param float $rate
-     */
-    
-    private function setTaxRate($rate)
-    {
-        $this->taxRate = $rate;
-    }
-    
-    public function getTaxRate()
-    {
-        return $this->calculateTaxRate();
-    }
-    
-    /**
-     * Calculate the tax rate
-     */
-    
-    private function calculateTaxRate()
-    {
-        
-        if (!$this->getSellerCountry() || !$this->getCustomerCountry() || !$this->getProductType())
-        {
-            return false;
-        }
-        
-        // If date of sale < January 1st 2015, don't use customer country
-        if ($this->getDateOfSale() < new \DateTime("2015-01-01"))
-        {
-            $this->setCustomerCountry($this->getSellerCountry());
-        }
-        
+        $taxRate,
         $rates = array(
             
             // Belgium
@@ -272,8 +167,112 @@ class EuroTax
                 self::STANDARD => 20
             )
         );
+    
+    public function __construct($sellerCountry = null, $customerCountry = null, $productType = null, $dateOfSale = null)
+    {
+        if (isset($sellerCountry)) $this->setSellerCountry($sellerCountry);
+        if (isset($customerCountry)) $this->setCustomerCountry($customerCountry);
+        if (isset($productType)) $this->setProductType($productType);
         
-        $country = $rates[$this->getCustomerCountry()];
+        $this->setDateOfSale(new \DateTime());
+        if (isset($dateOfSale)) 
+        {
+            $this->setDateOfSale($dateOfSale);
+        }
+        
+        $this->calculateTaxRate();
+    }
+    
+    /**
+     * Set the customer country
+     * @param string $country An ISO-3166 country code
+     */
+    public function setCustomerCountry($country) 
+    {
+        $this->customerCountry = strtoupper($country);
+    }
+    
+    public function getCustomerCountry() 
+    {
+        return $this->customerCountry;
+    }
+    
+    /**
+    * Set the seller country
+    * @param string $country An ISO-3166 country code
+    */
+    public function setSellerCountry($country) 
+    {
+        $this->sellerCountry = strtoupper($country);
+    }
+    
+    public function getSellerCountry() 
+    {
+        return $this->sellerCountry;
+    }
+    
+    /**
+     * Set the product type 
+     * @param CONST $type See CONSTs
+     */
+    public function setProductType($type)
+    {
+        $this->productType = $type;
+    }
+    
+    public function getProductType()
+    {
+        return $this->productType;
+    }
+    
+    /**
+     * Set the date of sale
+     * @param Date $date
+     */
+    public function setDateOfSale(\DateTime $date)
+    {
+        $this->dateOfSale = $date;
+    }
+    
+    public function getDateOfSale()
+    {
+        return $this->dateOfSale;
+    }
+    
+    /**
+     * Set the tax rate
+     * @param float $rate
+     */
+    
+    private function setTaxRate($rate)
+    {
+        $this->taxRate = $rate;
+    }
+    
+    public function getTaxRate()
+    {
+        return $this->calculateTaxRate();
+    }
+    
+    /**
+     * Calculate the tax rate
+     */
+    
+    private function calculateTaxRate()
+    {
+        
+        if (!$this->getSellerCountry() || !$this->getCustomerCountry() || !$this->getProductType())
+        {
+            return false;
+        }
+        
+        // If date of sale < January 1st 2015, don't use customer country
+        if ($this->getDateOfSale() < new \DateTime("2015-01-01"))
+        {
+            $this->setCustomerCountry($this->getSellerCountry());
+        }
+        
+        $country = $this->rates[$this->getCustomerCountry()];
         
         if (!$country)
         {
