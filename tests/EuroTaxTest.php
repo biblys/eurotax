@@ -49,5 +49,18 @@ class testEuroTax extends PHPUnit_Framework_TestCase
         $this->assertEquals($tax->getSellerCountry(), $tax->getCustomerCountry());
         
     }
+        
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Seller's country must be set before customer's.
+     */
+    public function testSettingCustomerBeforeSeller()
+    {
+    
+        $tax = new Tax();
+    
+        $tax->setCustomerCountry('FR');
+        
+    }
     
 }

@@ -184,11 +184,30 @@ class EuroTax
     }
     
     /**
+    * Set the seller country
+    * @param string $country An ISO-3166 country code
+    */
+    public function setSellerCountry($country) 
+    {
+        $this->sellerCountry = strtoupper($country);
+    }
+    
+    public function getSellerCountry() 
+    {
+        return $this->sellerCountry;
+    }
+    
+    /**
      * Set the customer country
      * @param string $country An ISO-3166 country code
      */
     public function setCustomerCountry($country) 
     {
+        if (empty($this->sellerCountry))
+        {
+            throw new \Exception("Seller's country must be set before customer's.");
+        }
+        
         $country = strtoupper($country);
         
         // If unhandled country, fallback to seller's
@@ -203,20 +222,6 @@ class EuroTax
     public function getCustomerCountry() 
     {
         return $this->customerCountry;
-    }
-    
-    /**
-    * Set the seller country
-    * @param string $country An ISO-3166 country code
-    */
-    public function setSellerCountry($country) 
-    {
-        $this->sellerCountry = strtoupper($country);
-    }
-    
-    public function getSellerCountry() 
-    {
-        return $this->sellerCountry;
     }
     
     /**
