@@ -20,7 +20,7 @@ class EuroTax
         $dateOfSale,
         $taxRate,
         $downloadable = array(self::EBOOK, self::EAUDIOBOOK),
-        $isDownlodable = false,
+        $isNewLawApplicable = true,
         $rates = array(
             
             // Belgium
@@ -236,10 +236,10 @@ class EuroTax
         
         $country = strtoupper($country);
         
-        // If unhandled country, fallback to seller's
+        // If non-european country, new law is not applicable
         if (!isset($this->rates[$country]))
         {
-            $country = $this->getSellerCountry();
+            $country = $this->isNewLawApplicable = false;
         }
         
         $this->customerCountry = $country;
@@ -250,14 +250,14 @@ class EuroTax
         return $this->customerCountry;
     }
     
-    private function setDownloadable()
+    private function setNewLawApplicable($bool)
     {
-        $this->isDownloadable = true;
+        $this->isNewLawApplicable = $bool;
     }
     
-    public function isDownloadable()
+    public function isNewLawApplicable()
     {
-        return $this->isDownloadable;
+        return $this->isNewLawApplicable;
     }
     
     /**
@@ -270,9 +270,10 @@ class EuroTax
         
         $country = $this->getCustomerCountry();
         
-        if (in_array($type, $this->downloadable))
+        // If product is not downloadable, new law is not applicable
+        if (!in_array($type, $this->downloadable))
         {
-            $this->setDownloadable();
+            $country = $this->isNewLawApplicable = false;
         }
         
         if (!isset($this->rates[$country][$type]))
@@ -342,7 +343,17 @@ class EuroTax
             return false;
         }
         
-        $rate = $this->rates[$this->getCustomerCountry()][$this->getProductType()];
+        // If new law is applicable, use customer country tax rate
+        if ($this->isNewLawApplicable())
+        {
+            $rate = $this->rates[$this->getCustomerCountry()][$this->getProductType()];
+        }
+        
+        // Else, use seller country tax rate
+        else
+        {
+            $rate = $this->rates[$this->getSellerCountry()][$this->getProductType()];
+        }
         
         $this->setTaxRate($rate);
         

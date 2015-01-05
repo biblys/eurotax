@@ -7,25 +7,24 @@ use Biblys\EuroTax as Tax;
 class testEuroTax extends PHPUnit_Framework_TestCase
 {
     
-    public function testSetDownloadable()
-    {
-        $tax = new Tax('FR', 'BE', Tax::EBOOK);
-        $this->assertTrue($tax->isDownloadable());
-    }
-    
     public function testBasic()
     {
-    
-        $tax = new Tax();
-        $tax->setSellerCountry('FR');
-        $tax->setCustomerCountry('BE');
-        $tax->setProductType(Tax::EBOOK);
+        $tax = new Tax('FR', 'BE', Tax::EBOOK);
         
         $this->assertEquals('FR', $tax->getSellerCountry());
         $this->assertEquals('BE', $tax->getCustomerCountry());
-        $this->assertTrue($tax->isDownloadable());
+        $this->assertTrue($tax->isNewLawApplicable());
         $this->assertEquals(21, $tax->getTaxRate());
         
+    }
+    
+    public function testSameCountry()
+    {
+        $tax = new Tax('FR', 'FR', Tax::EBOOK);
+        
+        $this->assertEquals('FR', $tax->getSellerCountry());
+        $this->assertEquals('FR', $tax->getCustomerCountry());
+        $this->assertEquals(5.5, $tax->getTaxRate());
     }
         
     public function testBefore2015()
@@ -41,11 +40,9 @@ class testEuroTax extends PHPUnit_Framework_TestCase
         
     public function testUnknownCustomerCountry()
     {
-    
         $tax = new Tax('FR', 'US', Tax::EBOOK);
 
-        $this->assertEquals($tax->getSellerCountry(), $tax->getCustomerCountry());
-        
+        $this->assertFalse($tax->isNewLawApplicable());
     }
         
     /**
@@ -66,8 +63,15 @@ class testEuroTax extends PHPUnit_Framework_TestCase
     
         $tax = new Tax('FR', 'FI', Tax::AUDIOBOOK);
 
-        $this->assertEquals(Tax::STANDARD, $tax->getProductType());
+        $this->assertEquals(Tax::STANDARD, $tax->getProductType());    
+    }
+    
+    public function testPhysicalProduct()
+    {
+        $tax = new Tax('FR', 'BE', Tax::BOOK);
         
+        $this->assertFalse($tax->isNewLawApplicable());
+        $this->assertEquals('20', $tax->getTaxRate());
     }
     
 }
