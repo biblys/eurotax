@@ -23,8 +23,7 @@ class EuroTax
             // Belgium
             'BE' => array(
                 self::STANDARD => 21,
-                self::BOOK => 6,
-                self::EBOOK => 21
+                self::BOOK => 6
             ),
             
             // Bulgaria
@@ -34,7 +33,8 @@ class EuroTax
             
             // Czech Republic
             'CZ' => array(
-                self::STANDARD => 21
+                self::STANDARD => 21,
+                self::BOOK => 10
             ),
             
             // Denmark
@@ -44,22 +44,26 @@ class EuroTax
             
             // Germany
             'DE' => array(
-                self::STANDARD => 19
+                self::STANDARD => 19,
+                self::BOOK => 7
             ),
             
             // Estonia
             'EE' => array(
-                self::STANDARD => 20
+                self::STANDARD => 20,
+                self::BOOK => 9
             ),
             
             // Greece
             'EL' => array(
-                self::STANDARD => 23
+                self::STANDARD => 23,
+                self::BOOK => 6.5
             ),
             
             // Spain
             'ES' => array(
-                self::STANDARD => 21
+                self::STANDARD => 21,
+                self::BOOK => 4
             ),
             
             // France
@@ -67,104 +71,123 @@ class EuroTax
                 self::STANDARD => 20,
                 self::BOOK => 5.5,
                 self::EBOOK => 5.5,
-                self::AUDIOBOOK => 5.5,
-                self::AUDIOBOOK => 20,
+                self::EAUDIOBOOK => 5.5,
                 self::PERIODICAL => 2.1
             ),
             
             // Croatia
             'HR' => array(
-                self::STANDARD => 25
+                self::STANDARD => 25,
+                self::BOOK => 5
             ),
             
             // Ireland
             'IE' => array(
-                self::STANDARD => 23
+                self::STANDARD => 23,
+                self::BOOK => 0
             ),
             
             // Italy
             'IT' => array(
-                self::STANDARD => 22
+                self::STANDARD => 22,
+                self::BOOK => 4
             ),
             
             // Cyprus
             'CY' => array(
-                self::STANDARD => 19
+                self::STANDARD => 19,
+                self::BOOK => 5
             ),
             
             // Latvia
             'LV' => array(
-                self::STANDARD => 21
+                self::STANDARD => 21,
+                self::BOOK => 12
             ),
             
             // Lithuania
             'LI' => array(
-                self::STANDARD => 21
+                self::STANDARD => 21,
+                self::BOOK => 9
             ),
             
             // Luxembourg
             'LU' => array(
-                self::STANDARD => 15
+                self::STANDARD => 15,
+                self::BOOK => 3,
+                self::EBOOK => 3
             ),
             
             // Hungary
             'HU' => array(
-                self::STANDARD => 27
+                self::STANDARD => 27,
+                self::BOOK => 5
             ),
             
             // Malta
             'MT' => array(
-                self::STANDARD => 18
+                self::STANDARD => 18,
+                self::BOOK => 5
             ),
             
             // Netherlands
             'NL' => array(
-                self::STANDARD => 21
+                self::STANDARD => 21,
+                self::BOOK => 5
             ),
             
             // Austria
             'AT' => array(
-                self::STANDARD => 20
+                self::STANDARD => 20,
+                self::BOOK => 10
             ),
             
             // Poland
             'PL' => array(
-                self::STANDARD => 23
+                self::STANDARD => 23,
+                self::BOOK => 5
             ),
             
             // Portugal
             'PT' => array(
-                self::STANDARD => 23
+                self::STANDARD => 23,
+                self::BOOK => 6
             ),
             
             // Romania
             'RO' => array(
-                self::STANDARD => 24
+                self::STANDARD => 24,
+                self::BOOK => 9
             ),
             
             // Slovenia 
             'SI' => array(
-                self::STANDARD => 22
+                self::STANDARD => 22,
+                self::BOOK => 9.5
             ),
             
             // Slovakia
             'SK' => array(
-                self::STANDARD => 20
+                self::STANDARD => 20,
+                self::BOOK => 10
             ),
             
             // Finland
             'FI' => array(
-                self::STANDARD => 24
+                self::STANDARD => 24,
+                self::BOOK => 10
             ),
             
             // Sweden
             'SE' => array(
-                self::STANDARD => 25
+                self::STANDARD => 25,
+                self::BOOK => 6
             ),
             
-            // United Kingdom
-            'UK' => array(
-                self::STANDARD => 20
+            // United Kingdom & Northern Ireland
+            'GB' => array(
+                self::STANDARD => 20,
+                self::BOOK => 0
             )
         );
     
