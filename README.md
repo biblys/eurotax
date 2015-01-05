@@ -12,6 +12,8 @@ With composer :
 
     composer require biblys/eurotax:dev-master
 
+Packagist page: https://packagist.org/packages/biblys/eurotax
+
 ## Usage
 
 Say you're selling an ebook from a french bookshop to a belgian customer: Belgium standard tva rate must be used. 
@@ -68,9 +70,13 @@ I created this class with only the countries and product types I needed in my ap
 
 ## Changelog
 
+1.0.3 (05/01/2015)
+* Quickfix setting isNewLawApplicable to false for non downloadable
+
 1.0.2 (05/01/2015)
 * Added books & ebooks VAT rates for all european countries
 * Added method isNewLawApplicable() that returns false if country is not in Europe or date of sale is < 2015-01-01
+* Various bug fixes
 
 1.0.1 (02/01/2015)
 * Allow lowercase for country codes
