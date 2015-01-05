@@ -7,6 +7,12 @@ use Biblys\EuroTax as Tax;
 class testEuroTax extends PHPUnit_Framework_TestCase
 {
     
+    public function testSetDownloadable()
+    {
+        $tax = new Tax('FR', 'BE', Tax::EBOOK);
+        $this->assertTrue($tax->isDownloadable());
+    }
+    
     public function test()
     {
     
@@ -14,7 +20,6 @@ class testEuroTax extends PHPUnit_Framework_TestCase
         $tax->setSellerCountry('FR');
         $tax->setCustomerCountry('BE');
         $tax->setProductType(Tax::EBOOK);
-
         $this->assertEquals(21, $tax->getTaxRate());
         
     }

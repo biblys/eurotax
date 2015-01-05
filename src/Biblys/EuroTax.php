@@ -18,6 +18,8 @@ class EuroTax
         $productType,
         $dateOfSale,
         $taxRate,
+        $downloadable = array(self::EBOOK, self::EAUDIOBOOK),
+        $isDownlodable = false,
         $rates = array(
             
             // Belgium
@@ -247,6 +249,16 @@ class EuroTax
         return $this->customerCountry;
     }
     
+    private function setDownloadable()
+    {
+        $this->isDownloadable = true;
+    }
+    
+    public function isDownloadable()
+    {
+        return $this->isDownloadable;
+    }
+    
     /**
      * Set the product type 
      * @param CONST $type See CONSTs
@@ -254,6 +266,11 @@ class EuroTax
     public function setProductType($type)
     {
         $country = $this->getCustomerCountry();
+        
+        if (in_array($type, $this->downloadable))
+        {
+            $this->setDownloadable();
+        }
         
         if (!isset($this->rates[$country][$type]))
         {
@@ -300,7 +317,6 @@ class EuroTax
     /**
      * Calculate the tax rate
      */
-    
     private function calculateTaxRate()
     {
         
