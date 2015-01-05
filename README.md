@@ -14,20 +14,12 @@ With composer :
 
 ## Usage
 
-Say you're selling an ebook from a french bookshop to a belgian customer: Belgium ebook tva rate must be used. 
-
-    $tax = new \Biblys\EuroTax();
-    $tax->setSellerCountry('FR');
-    $tax->setCustomerCountry('BE');
-    $tax->setProductType(\Biblys\EuroTax::EBOOK);
-    
-    echo $tax->getTaxRate(); // Will echo 21
-
-Short version:
+Say you're selling an ebook from a french bookshop to a belgian customer: Belgium standard tva rate must be used. 
 
     $tax = new \Biblys\EuroTax('FR', 'BE', \Biblys\EuroTax::EBOOK);
+    $tax->isNewLawApplicable(); // Will return true 
     echo $tax->getTaxRate(); // Will echo 21
-    
+
 ## Available countries
 
 * BE: Belgium
@@ -72,9 +64,13 @@ Short version:
 
 ## Contribute
 
-I just this class with just the countries and product types I needed in my app, but feel free to add whatever your need and share it by doing pull requests.
+I created this class with only the countries and product types I needed in my app, but feel free to add whatever your need and share it by doing pull requests.
 
 ## Changelog
+
+1.0.2 (05/01/2015)
+* Added books & ebooks VAT rates for all european countries
+* Added method isNewLawApplicable() that returns false if country is not in Europe or date of sale is < 2015-01-01
 
 1.0.1 (02/01/2015)
 * Allow lowercase for country codes
