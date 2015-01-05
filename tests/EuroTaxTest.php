@@ -13,13 +13,17 @@ class testEuroTax extends PHPUnit_Framework_TestCase
         $this->assertTrue($tax->isDownloadable());
     }
     
-    public function test()
+    public function testBasic()
     {
     
         $tax = new Tax();
         $tax->setSellerCountry('FR');
         $tax->setCustomerCountry('BE');
         $tax->setProductType(Tax::EBOOK);
+        
+        $this->assertEquals('FR', $tax->getSellerCountry());
+        $this->assertEquals('BE', $tax->getCustomerCountry());
+        $this->assertTrue($tax->isDownloadable());
         $this->assertEquals(21, $tax->getTaxRate());
         
     }
@@ -27,22 +31,11 @@ class testEuroTax extends PHPUnit_Framework_TestCase
     public function testBefore2015()
     {
     
-        $tax = new Tax();
-        $tax->setSellerCountry('FR');
-        $tax->setCustomerCountry('BE');
-        $tax->setProductType(Tax::EBOOK);
-        $tax->setDateOfSale(new \DateTime('2014-12-31'));
-
+        $tax = new Tax('FR', 'BE', Tax::EBOOK, new \DateTime('2014-12-31'));
+        
+        $this->assertEquals(Tax::EBOOK, $tax->getProductType());
+        $this->assertEquals('FR', $tax->getCustomerCountry()); // Must fallback to seller country
         $this->assertEquals(5.5, $tax->getTaxRate());
-        
-    }
-        
-    public function testShortVersion()
-    {
-    
-        $tax = new Tax('FR', 'BE', Tax::EBOOK);
-
-        $this->assertEquals(21, $tax->getTaxRate());
         
     }
         

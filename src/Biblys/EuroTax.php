@@ -16,6 +16,7 @@ class EuroTax
     private $customerCountry,
         $sellerCountry,
         $productType,
+        $originalProductType,
         $dateOfSale,
         $taxRate,
         $downloadable = array(self::EBOOK, self::EAUDIOBOOK),
@@ -265,6 +266,8 @@ class EuroTax
      */
     public function setProductType($type)
     {
+        $this->originalProductType = $type;
+        
         $country = $this->getCustomerCountry();
         
         if (in_array($type, $this->downloadable))
@@ -280,8 +283,12 @@ class EuroTax
         $this->productType = $type;
     }
     
-    public function getProductType()
+    public function getProductType($original = false)
     {
+        if ($original)
+        {
+            return $this->originalProductType;
+        }
         return $this->productType;
     }
     
@@ -291,6 +298,16 @@ class EuroTax
      */
     public function setDateOfSale(\DateTime $date)
     {
+        
+        // If date of sale < January 1st 2015, don't use customer country
+        if ($date < new \DateTime("2015-01-01"))
+        {
+            $this->setCustomerCountry($this->getSellerCountry());
+        }
+        
+        // Update product type as customer country may have changed
+        $this->setProductType($this->getProductType(true));
+        
         $this->dateOfSale = $date;
     }
     
@@ -323,12 +340,6 @@ class EuroTax
         if (!$this->getSellerCountry() || !$this->getCustomerCountry() || !$this->getProductType())
         {
             return false;
-        }
-        
-        // If date of sale < January 1st 2015, don't use customer country
-        if ($this->getDateOfSale() < new \DateTime("2015-01-01"))
-        {
-            $this->setCustomerCountry($this->getSellerCountry());
         }
         
         $rate = $this->rates[$this->getCustomerCountry()][$this->getProductType()];
