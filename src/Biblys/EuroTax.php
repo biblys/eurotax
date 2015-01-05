@@ -273,7 +273,7 @@ class EuroTax
         // If product is not downloadable, new law is not applicable
         if (!in_array($type, $this->downloadable))
         {
-            $country = $this->isNewLawApplicable = false;
+            $this->isNewLawApplicable = false;
         }
         
         if (!isset($this->rates[$country][$type]))

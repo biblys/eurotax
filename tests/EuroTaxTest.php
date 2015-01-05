@@ -71,7 +71,7 @@ class testEuroTax extends PHPUnit_Framework_TestCase
         $tax = new Tax('FR', 'BE', Tax::BOOK);
         
         $this->assertFalse($tax->isNewLawApplicable());
-        $this->assertEquals('20', $tax->getTaxRate());
+        $this->assertEquals(5.5, $tax->getTaxRate());
     }
     
 }
