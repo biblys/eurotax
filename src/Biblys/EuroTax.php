@@ -4,14 +4,14 @@ namespace Biblys;
 
 class EuroTax
 {
-    const STANDARD = 0, // Default tax rate to use with unknown type
-        BOOK = 1, 
-        EBOOK = 2, 
-        AUDIOBOOK = 3, // Physical audio books
-        EAUDIOBOOK = 4, // Downloadable audio books
-        PERIODICAL = 5, // Magazines
-        CD = 6,
-        DVD = 7;
+    const STANDARD = 1, // Default tax rate to use with unknown type
+        BOOK = 2, 
+        EBOOK = 3, 
+        AUDIOBOOK = 4, // Physical audio books
+        EAUDIOBOOK = 5, // Downloadable audio books
+        PERIODICAL = 6, // Magazines
+        CD = 7,
+        DVD = 8;
     
     private $customerCountry,
         $sellerCountry,
